@@ -1,0 +1,50 @@
+﻿@page "/"
+@using Syncfusion.Blazor.Charts
+
+<SfAccumulationChart Title="Mobile Browser Statistics">
+    <AccumulationChartSeriesCollection>
+        <AccumulationChartSeries DataSource="@StatisticsDetails" XName="Browser" YName="Users"
+                                 Name="Browser">
+        </AccumulationChartSeries>
+    </AccumulationChartSeriesCollection>
+    <AccumulationChartEvents OnLegendItemRender="@LegendRender"></AccumulationChartEvents>
+    <AccumulationChartLegendSettings Visible="true" Position="LegendPosition.Top"></AccumulationChartLegendSettings>
+</SfAccumulationChart>
+
+@code {
+    public class Statistics
+    {
+        public string Browser { get; set; }
+        public double Users { get; set; }
+    }
+
+    public List<Statistics> StatisticsDetails = new List<Statistics>
+    {
+        new Statistics { Browser = "Chrome", Users = 37 },
+        new Statistics { Browser = "UC Browser", Users = 17 },
+        new Statistics { Browser = "iPhone", Users = 19 },
+        new Statistics { Browser = "Others", Users = 4  },
+        new Statistics { Browser = "Opera", Users = 11 },
+        new Statistics { Browser = "Android", Users = 12 },
+    };
+
+    public void LegendRender(AccumulationLegendRenderEventArgs args)
+    {
+        if (args.Text == "Chrome" || args.Text == "UC Browser")
+        {
+            args.Fill = "green";
+            args.Shape = LegendShape.Diamond;
+        }
+        if (args.Text == "iPhone" || args.Text == "Android")
+        {
+            args.Fill = "blue";
+            args.Shape = LegendShape.Circle;
+        }
+        if (args.Text == "Others" || args.Text == "Opera")
+        {
+            args.Fill = "red";
+            args.Shape = LegendShape.InvertedTriangle;
+        }
+    }
+}
+
