@@ -1,16 +1,18 @@
 # How-to-customize-the-individual-legend-item-based-on-condition-in-Blazor-chart? 
 
-This article explains how to customize the individual legend item based on condition in blazor chart.
+This article explains how to customize the individual legend items based on condition in Blazor Chart Component.
 
-**Customizing legend item using OnLegendItemRender event**
+**Customizing legend items in Blazor chart**
 
-[Blazor chart](https://www.syncfusion.com/blazor-components/blazor-charts) provide the support to customize the legend item. We can customize the color, shape, and text of the legend item.
+[Blazor Chart](https://www.syncfusion.com/blazor-components/blazor-charts) provides support for customizing legend items. You can customize the color, shape, and text of each legend item in the Blazor Chart Component.
 
-This can be achieved by using [OnLegendItemRender](https://help.syncfusion.com/cr/blazor/Syncfusion.Blazor.Charts.AccumulationChartEvents.html#Syncfusion_Blazor_Charts_AccumulationChartEvents_OnLegendItemRender) event. This event triggers before each legend item are rendered.
+This customization can be achieved by handling the [OnLegendItemRender](https://help.syncfusion.com/cr/blazor/Syncfusion.Blazor.Charts.AccumulationChartEvents.html#Syncfusion_Blazor_Charts_AccumulationChartEvents_OnLegendItemRender) event, which triggers before each legend item is rendered. 
 
-The below code Example illustrate this.
+An event handler is implemented to change the legend shape based on the X name, and this event handler is subscribed to the [OnLegendItemRender](https://help.syncfusion.com/cr/blazor/Syncfusion.Blazor.Charts.AccumulationChartEvents.html#Syncfusion_Blazor_Charts_AccumulationChartEvents_OnLegendItemRender) event. 
 
-**C#**
+The code example below demonstrates how to customize individual legends based on conditions in a Blazor chart: 
+
+**Index.razor**
 
 ```cshtml
 
@@ -19,8 +21,7 @@ The below code Example illustrate this.
 <SfAccumulationChart Title="Mobile Browser Statistics">
 
     <AccumulationChartSeriesCollection>
-        <AccumulationChartSeries DataSource="@StatisticsDetails" XName="Browser" YName="Users"
-                                 Name="Browser">
+        <AccumulationChartSeries DataSource="@StatisticsDetails" XName="Browser" YName="Users" Name="Browser">
         </AccumulationChartSeries>
     </AccumulationChartSeriesCollection>
     <AccumulationChartEvents OnLegendItemRender="@LegendRender"></AccumulationChartEvents>
@@ -68,15 +69,15 @@ The below code Example illustrate this.
 
 ```
 
-The following screenshot illustrate the output of the above code snippet.
+The following screenshot illustrates the output of the above code snippet.
 
 **Output:**
 
-![](/legend-customization.png)
+![](/legend-customization.png) 
 
 **Conclusion**
 
-I hope you enjoyed learning how to customize legend item based on conditions in Blazor Chart Component.
+I hope you enjoyed learning how to customize legend items based on conditions in Blazor Chart Component.
 
 You can refer to our [Blazor Chart feature tour](https://www.syncfusion.com/blazor-components/blazor-charts) page to know about its other groundbreaking feature representations and [documentation](https://blazor.syncfusion.com/documentation/chart/getting-started), and how to quickly get started for configuration specifications. You can also explore our [Blazor Chart example](https://blazor.syncfusion.com/demos/chart/line?theme=bootstrap5) to understand how to create and manipulate data.
 
