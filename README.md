@@ -1,86 +1,67 @@
-# How-to-customize-the-individual-legend-item-based-on-condition-in-Blazor-chart? 
+# Customize Individual Legend Items Conditionally in Syncfusion Blazor Accumulation Chart
 
-This article explains how to customize the individual legend items based on condition in Blazor Chart Component.
+## Overview
 
-**Customizing legend items in Blazor chart**
+This sample demonstrates how to customize individual legend items in a Syncfusion [Blazor Charts](https://www.syncfusion.com/blazor-components/blazor-charts) accumulation chart based on runtime conditions. The implementation uses the `OnLegendItemRender` event to intercept legend rendering and apply different colors and shapes to specific legend entries according to the associated browser category. This approach helps visually group related data points and improves legend readability by making important categories easier to identify. The sample uses browser usage statistics displayed in an accumulation chart and dynamically customizes each legend item before rendering.
 
-[Blazor Chart](https://www.syncfusion.com/blazor-components/blazor-charts) provides support for customizing legend items. You can customize the color, shape, and text of each legend item in the Blazor Chart Component.
+## Key Features
 
-This customization can be achieved by handling the [OnLegendItemRender](https://help.syncfusion.com/cr/blazor/Syncfusion.Blazor.Charts.AccumulationChartEvents.html#Syncfusion_Blazor_Charts_AccumulationChartEvents_OnLegendItemRender) event, which triggers before each legend item is rendered. 
+- Uses the `SfAccumulationChart` component to display browser statistics.
+- Configures an `AccumulationChartSeries` with:
+  - `DataSource`
+  - `XName`
+  - `YName`
+  - `Name`
+- Enables legend display using `AccumulationChartLegendSettings`.
+- Handles the `OnLegendItemRender` event through a custom `LegendRender` method.
+- Uses `AccumulationLegendRenderEventArgs` to customize legend items dynamically.
+- Updates the `Fill` property to apply conditional legend colors.
+- Updates the `Shape` property to apply conditional legend shapes.
+- Demonstrates multiple `LegendShape` values, including:
+  - `Diamond`
+  - `Circle`
+  - `InvertedTriangle`
+- Applies custom legend styling based on the legend item's `Text` value.
 
-An event handler is implemented to change the legend shape based on the X name, and this event handler is subscribed to the [OnLegendItemRender](https://help.syncfusion.com/cr/blazor/Syncfusion.Blazor.Charts.AccumulationChartEvents.html#Syncfusion_Blazor_Charts_AccumulationChartEvents_OnLegendItemRender) event. 
+## Prerequisites
 
-The code example below demonstrates how to customize individual legends based on conditions in a Blazor chart: 
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) or [Visual Studio Code](https://code.visualstudio.com/)
+- [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet) compatible with the project's target framework
 
-**Index.razor**
+## How to Run the Project
 
-```cshtml
+**Visual Studio 2022**
 
-@using Syncfusion.Blazor.Charts
+1. Clone or download this repository.
+2. Open the `LegendCustomization.csproj` project file.
+3. Restore the required NuGet packages.
+4. Build the project.
+5. Run the application using `Ctrl+F5`.
 
-<SfAccumulationChart Title="Mobile Browser Statistics">
+**Visual Studio Code**
 
-    <AccumulationChartSeriesCollection>
-        <AccumulationChartSeries DataSource="@StatisticsDetails" XName="Browser" YName="Users" Name="Browser">
-        </AccumulationChartSeries>
-    </AccumulationChartSeriesCollection>
-    <AccumulationChartEvents OnLegendItemRender="@LegendRender"></AccumulationChartEvents>
-    <AccumulationChartLegendSettings Visible="true" Position="LegendPosition.Top"></AccumulationChartLegendSettings>
+1. Clone or download this repository.
+2. Open the repository folder in Visual Studio Code.
+3. Open the integrated terminal.
+4. Navigate to the project directory that contains `LegendCustomization.csproj`.
 
-</SfAccumulationChart>
-
-@code {
-
-    public class Statistics
-    {
-        public string Browser { get; set; }
-        public double Users { get; set; }
-    }
-
-    public List<Statistics> StatisticsDetails = new List<Statistics>
-    {
-        new Statistics { Browser = "Chrome", Users = 37 },
-        new Statistics { Browser = "UC Browser", Users = 17 },
-        new Statistics { Browser = "iPhone", Users = 19 },
-        new Statistics { Browser = "Others", Users = 4  },
-        new Statistics { Browser = "Opera", Users = 11 },
-        new Statistics { Browser = "Android", Users = 12 },
-    };
-
-    public void LegendRender(AccumulationLegendRenderEventArgs args)
-    {
-        if(args.Text == "Chrome" || args.Text == "UC Browser")
-        {
-            args.Fill = "green";
-            args.Shape = LegendShape.Diamond;
-        }
-        if (args.Text == "iPhone" || args.Text == "Android")
-        {
-            args.Fill = "blue";
-            args.Shape = LegendShape.Circle;
-        }
-        if (args.Text == "Others" || args.Text == "Opera")
-        {
-            args.Fill = "red";
-            args.Shape = LegendShape.InvertedTriangle;
-        }
-    }
-}
-
+```bash
+dotnet restore
+dotnet run
 ```
 
-The following screenshot illustrates the output of the above code snippet.
+5. Open the local application URL displayed in the terminal after the application starts.
 
-**Output:**
+## Project Structure
 
-![](/legend-customization.png) 
+`LegendCustomization/Pages/Index.razor` - Main sample page containing the accumulation chart, browser statistics data source, and legend customization logic implemented through the `OnLegendItemRender` event.
 
-**Conclusion**
+## Support and Feedback
 
-I hope you enjoyed learning how to customize legend items based on conditions in Blazor Chart Component.
+- For general product questions, visit the [Syncfusion Community Forum](https://www.syncfusion.com/forums) or [Syncfusion Support](https://www.syncfusion.com/support).
+- To report an issue specific to this sample, open a GitHub issue in this repository.
+- Documentation: https://help.syncfusion.com/chart-sdk/blazor/accumulation-chart/legend
 
-You can refer to our [Blazor Chart feature tour](https://www.syncfusion.com/blazor-components/blazor-charts) page to know about its other groundbreaking feature representations and [documentation](https://blazor.syncfusion.com/documentation/chart/getting-started), and how to quickly get started for configuration specifications. You can also explore our [Blazor Chart example](https://blazor.syncfusion.com/demos/chart/line?theme=bootstrap5) to understand how to create and manipulate data.
+## License
 
-For current customers, you can check out our components from the [License and Downloads](https://www.syncfusion.com/sales/teamlicense) page. If you are new to Syncfusion, you can try our 30-day [free trial](https://www.syncfusion.com/downloads/blazor) to check out our other controls.
-
-If you have any queries or require clarifications, please let us know in the comments section below. You can also contact us through our [support forums](https://www.syncfusion.com/forums), [support portal](https://support.syncfusion.com/create), or [feedback portal](https://www.syncfusion.com/feedback/blazor-components?control=charts). We are always happy to assist you!
+This is a Syncfusion sample project provided to demonstrate product usage. Review the [Syncfusion license terms](https://www.syncfusion.com/sales/pricing?category=ui-components) before using Syncfusion components in your own applications.
